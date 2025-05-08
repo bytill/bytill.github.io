@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stuff made by Till</title>
-  
-  <!-- Tagesschrift Font einbinden -->
+
+  <!-- Tagesschrift Font -->
   <link href="https://fonts.googleapis.com/css2?family=Tagesschrift&display=swap" rel="stylesheet">
 
   <style>
@@ -15,8 +15,8 @@
       height: 100%;
       width: 100%;
       overflow: hidden;
-      font-family: 'Arial', sans-serif;
       background: radial-gradient(ellipse at bottom, #0b0c2a 0%, #000000 100%);
+      font-family: 'Tagesschrift', sans-serif;
       color: white;
       display: flex;
       align-items: center;
@@ -24,48 +24,63 @@
       position: relative;
     }
 
-    /* Milchstraße im Hintergrund */
+    /* Milchstraße */
     .milky-way {
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 300%;
-      height: 300%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
-      border-radius: 50%;
-      filter: blur(100px);
-      animation: moveMilkyWay 200s linear infinite;
+      width: 100%;
+      height: 40%;
+      transform: translate(-50%, -50%) rotate(-20deg);
+      background: radial-gradient(ellipse at center, rgba(255,255,255,0.3) 0%, transparent 70%);
+      filter: blur(60px);
       z-index: 0;
     }
 
-    /* Bewegt die Milchstraße */
-    @keyframes moveMilkyWay {
-      0% { transform: translate(-50%, -50%); }
-      100% { transform: translate(-40%, -40%); }
-    }
-
-    /* Viele kleine Sterne */
+    /* Statische kleine Sterne */
     .stars {
       position: absolute;
-      width: 300%;
-      height: 300%;
+      width: 100%;
+      height: 100%;
       background: transparent;
       background-image: 
         radial-gradient(white 0.5px, transparent 0.5px),
         radial-gradient(white 1px, transparent 1px),
-        radial-gradient(white 1.5px, transparent 1.5px),
-        radial-gradient(white 2px, transparent 2px);
-      background-size: 50px 50px, 80px 80px, 120px 120px, 180px 180px;
-      background-position: 0 0, 20px 20px, 40px 40px, 60px 60px;
-      animation: moveStars 400s linear infinite;
+        radial-gradient(white 1px, transparent 1px);
+      background-size: 50px 50px, 100px 100px, 150px 150px;
+      background-position: 0 0, 25px 25px, 50px 50px;
       z-index: 0;
-      opacity: 0.8;
     }
 
-    /* Sterne bewegen sich langsam */
-    @keyframes moveStars {
-      from { transform: translate(0, 0); }
-      to { transform: translate(-25%, 25%); }
+    /* Einzelne größere Sterne, die aufleuchten */
+    .large-star {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: twinkle 4s infinite alternate;
+    }
+
+    /* Leicht versetzte Animationen */
+    .large-star:nth-child(2) {
+      animation-delay: 0s;
+    }
+    .large-star:nth-child(3) {
+      animation-delay: 1s;
+    }
+    .large-star:nth-child(4) {
+      animation-delay: 2s;
+    }
+    .large-star:nth-child(5) {
+      animation-delay: 3s;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.5; }
+      50% { opacity: 1; }
+      100% { opacity: 0.5; }
     }
 
     /* Text */
@@ -74,33 +89,10 @@
       z-index: 1;
       font-size: 4vw;
       text-align: center;
-      font-family: 'Tagesschrift', sans-serif;
-      color: white;
-      text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6), 0 0 45px rgba(255, 255, 255, 0.4);
-    }
-
-    /* Statischer Glow-Effekt für den Text */
-    .content {
       text-shadow: 
-        0 0 10px rgba(255, 255, 255, 0.8), 
-        0 0 20px rgba(255, 255, 255, 0.6), 
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.6),
         0 0 30px rgba(255, 255, 255, 0.4);
-    }
-
-    /* Nur einige größere Sterne flackern */
-    .large-star {
-      width: 3px;
-      height: 3px;
-      background-color: white;
-      position: absolute;
-      border-radius: 50%;
-      animation: largeTwinkle 2s infinite ease-in-out alternate;
-    }
-
-    @keyframes largeTwinkle {
-      0% { opacity: 1; }
-      50% { opacity: 0.4; }
-      100% { opacity: 1; }
     }
 
   </style>
@@ -108,14 +100,15 @@
 <body>
   <div class="stars"></div>
   <div class="milky-way"></div>
-  
-  <!-- Einige größere Sterne, die flackern -->
+
+  <!-- Größere Sterne -->
   <div class="large-star" style="top: 20%; left: 30%;"></div>
-  <div class="large-star" style="top: 50%; left: 60%;"></div>
+  <div class="large-star" style="top: 45%; left: 70%;"></div>
+  <div class="large-star" style="top: 70%; left: 40%;"></div>
   <div class="large-star" style="top: 80%; left: 80%;"></div>
 
   <div class="content">
-    stuff made by till.
+    stuff made by till
   </div>
 </body>
 </html>
