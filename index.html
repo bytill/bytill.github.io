@@ -87,7 +87,7 @@
 
     @keyframes float {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
+      50% { transform: translateY(-5px); }
     }
 
     .content {
@@ -147,23 +147,17 @@
 
         // Wörter durchwechseln, aber langsamer werden
     const words = ["creativity", "art", "videos", "content", "code", "humor", "apps", "stuff"];
-    const wordElement = document.getElementById('changing-word');
     let wordIndex = 0;
-    let delay = 200; // Startet schnell (ms)
+    const wordElement = document.getElementById('changing-word');
 
-    function changeWord() {
+    const interval = setInterval(() => {
       wordElement.textContent = words[wordIndex];
       wordIndex++;
 
-      if (wordIndex < words.length) {
-        // Verzögerung erhöhen (langsamer werden)
-        delay += 100;
-        setTimeout(changeWord, delay);
+      if (wordIndex >= words.length) {
+        clearInterval(interval); // Stoppen, wenn alle Wörter durch sind
       }
-    }
-
-    // Starte den Textwechsel
-    setTimeout(changeWord, delay);
+    }, 500); // Alle 0,3 Sekunden wechseln
   </script>
 
 </body>
