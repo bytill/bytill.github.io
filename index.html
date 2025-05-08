@@ -124,7 +124,7 @@
   <div class="content-wrapper">
     <img src="Meditate.png" alt="Till im Schneidersitz" class="floating-image">
     <div class="content">
-      <span id="changing-word" class="changing-word">stuff</span> made by Till.
+      stuff made by Till.
     </div>
   </div>
 
@@ -153,20 +153,6 @@
       star.style.opacity = Math.random() * 0.8 + 0.2;
       starsContainer.appendChild(star);
     }
-
-        // Wörter durchwechseln, aber langsamer werden
-    const words = ["creativity", "art", "videos", "content", "code", "humor", "apps", "stuff"];
-    let wordIndex = 0;
-    const wordElement = document.getElementById('changing-word');
-
-    const interval = setInterval(() => {
-      wordElement.textContent = words[wordIndex];
-      wordIndex++;
-
-      if (wordIndex >= words.length) {
-        clearInterval(interval); // Stoppen, wenn alle Wörter durch sind
-      }
-    }, 500); 
   </script>
 
 </body>
