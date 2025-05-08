@@ -1,1 +1,79 @@
-<h1>Hey Otti schlaf schön</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stuff made by Till</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      background: radial-gradient(ellipse at bottom, #0b0c2a 0%, #000000 100%);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* VIELE kleine Sterne */
+    .stars {
+      position: absolute;
+      width: 300%;
+      height: 300%;
+      background: transparent;
+      background-image: 
+        radial-gradient(white 0.5px, transparent 0.5px),
+        radial-gradient(white 0.5px, transparent 0.5px),
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(white 1px, transparent 1px);
+      background-size: 50px 50px, 75px 75px, 100px 100px, 150px 150px;
+      background-position: 0 0, 25px 25px, 50px 50px, 75px 75px;
+      animation: moveStars 400s linear infinite;
+      opacity: 0.7;
+      z-index: 0;
+    }
+
+    @keyframes moveStars {
+      from { transform: translate(0, 0); }
+      to { transform: translate(-25%, 25%); }
+    }
+
+    /* Nebel */
+    .nebula {
+      position: absolute;
+      width: 400%;
+      height: 400%;
+      background: radial-gradient(circle at 30% 30%, rgba(128,0,255,0.2) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 70%, rgba(0,255,255,0.2) 0%, transparent 50%),
+                  radial-gradient(circle at 50% 20%, rgba(255,255,255,0.05) 0%, transparent 40%);
+      animation: floatNebula 300s linear infinite alternate;
+      z-index: 0;
+    }
+
+    @keyframes floatNebula {
+      0% { transform: translate(0%, 0%) scale(1); }
+      100% { transform: translate(-10%, -10%) scale(1.3); }
+    }
+
+    /* Text */
+    .content {
+      position: relative;
+      z-index: 1;
+      font-size: 4vw;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="nebula"></div>
+  <div class="content">
+    stuff made by till.
+  </div>
+</body>
+</html>
