@@ -57,7 +57,6 @@
       opacity: 0.8;
     }
 
-    /* Flackernde größere Sterne */
     .large-star {
       position: absolute;
       background: white;
@@ -96,10 +95,13 @@
       font-size: 4vw;
       display: flex;
       gap: 10px;
+      white-space: nowrap;
     }
 
     .changing-word {
       display: inline-block;
+      min-width: 60px; /* Fixe Breite, damit nichts springt */
+      text-align: center;
     }
   </style>
 </head>
@@ -112,7 +114,7 @@
   <!-- Milchstraße -->
   <div class="milky-way"></div>
 
-  <!-- größere Sterne (flackern) -->
+  <!-- größere Sterne -->
   <div class="large-star" style="top: 20%; left: 30%; width: 5px; height: 5px; animation-delay: 0s;"></div>
   <div class="large-star" style="top: 50%; left: 60%; width: 6px; height: 6px; animation-delay: 2s;"></div>
   <div class="large-star" style="top: 75%; left: 40%; width: 4px; height: 4px; animation-delay: 4s;"></div>
@@ -129,8 +131,8 @@
   <script>
     const starsContainer = document.getElementById('stars');
 
-    // Viele kleine Sterne erzeugen
-    const starCount = 800;
+    // Erzeuge viele kleine Sterne
+    const starCount = 500;
     for (let i = 0; i < starCount; i++) {
       const star = document.createElement('div');
       star.classList.add('star');
@@ -143,15 +145,19 @@
       starsContainer.appendChild(star);
     }
 
-    // Text wechseln (ohne Flip)
+    // Text einmal durchlaufen lassen
     const words = ["tech", "art", "videos", "apps", "beer", "stuff"];
     let wordIndex = 0;
     const wordElement = document.getElementById('changing-word');
 
-    setInterval(() => {
-      wordIndex = (wordIndex + 1) % words.length;
+    const interval = setInterval(() => {
       wordElement.textContent = words[wordIndex];
-    }, 3000); // Alle 3 Sekunden wechseln
+      wordIndex++;
+
+      if (wordIndex >= words.length) {
+        clearInterval(interval); // Stoppen, wenn alle Wörter durch sind
+      }
+    }, 1000); // Alle 1 Sekunden wechseln
   </script>
 
 </body>
