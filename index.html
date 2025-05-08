@@ -24,6 +24,26 @@
       position: relative;
     }
 
+    /* Milchstraße im Hintergrund */
+    .milky-way {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300%;
+      height: 300%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: moveMilkyWay 200s linear infinite;
+      z-index: 0;
+    }
+
+    /* Bewegt die Milchstraße */
+    @keyframes moveMilkyWay {
+      0% { transform: translate(-50%, -50%); }
+      100% { transform: translate(-40%, -40%); }
+    }
+
     /* Viele kleine Sterne */
     .stars {
       position: absolute;
@@ -37,7 +57,7 @@
         radial-gradient(white 2px, transparent 2px);
       background-size: 50px 50px, 80px 80px, 120px 120px, 180px 180px;
       background-position: 0 0, 20px 20px, 40px 40px, 60px 60px;
-      animation: moveStars 400s linear infinite, twinkle 2s infinite ease-in-out alternate;
+      animation: moveStars 400s linear infinite;
       z-index: 0;
       opacity: 0.8;
     }
@@ -48,30 +68,6 @@
       to { transform: translate(-25%, 25%); }
     }
 
-    /* Nur größere Sterne flackern */
-    @keyframes twinkle {
-      0% { opacity: 0.6; }
-      50% { opacity: 0.8; }
-      100% { opacity: 0.6; }
-    }
-
-    /* Nebel */
-    .nebula {
-      position: absolute;
-      width: 400%;
-      height: 400%;
-      background: radial-gradient(circle at 30% 30%, rgba(128,0,255,0.2) 0%, transparent 50%),
-                  radial-gradient(circle at 70% 70%, rgba(0,255,255,0.15) 0%, transparent 50%),
-                  radial-gradient(circle at 50% 20%, rgba(255,255,255,0.05) 0%, transparent 40%);
-      animation: floatNebula 300s linear infinite alternate;
-      z-index: 0;
-    }
-
-    @keyframes floatNebula {
-      0% { transform: translate(0%, 0%) scale(1); }
-      100% { transform: translate(-10%, -10%) scale(1.3); }
-    }
-
     /* Text */
     .content {
       position: relative;
@@ -80,30 +76,15 @@
       text-align: center;
       font-family: 'Tagesschrift', sans-serif;
       color: white;
-      text-shadow: 
-        0 0 15px rgba(255, 255, 255, 0.8), 
-        0 0 30px rgba(255, 255, 255, 0.6), 
-        0 0 45px rgba(255, 255, 255, 0.4);
-      animation: textGlow 1.5s ease-in-out infinite alternate;
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6), 0 0 45px rgba(255, 255, 255, 0.4);
     }
 
-    /* Glow-Effekt für den Text */
-    @keyframes textGlow {
-      0% { text-shadow: 
+    /* Statischer Glow-Effekt für den Text */
+    .content {
+      text-shadow: 
         0 0 10px rgba(255, 255, 255, 0.8), 
         0 0 20px rgba(255, 255, 255, 0.6), 
         0 0 30px rgba(255, 255, 255, 0.4);
-      }
-      50% { text-shadow: 
-        0 0 20px rgba(255, 255, 255, 1), 
-        0 0 40px rgba(255, 255, 255, 0.9), 
-        0 0 60px rgba(255, 255, 255, 0.8);
-      }
-      100% { text-shadow: 
-        0 0 10px rgba(255, 255, 255, 0.8), 
-        0 0 20px rgba(255, 255, 255, 0.6), 
-        0 0 30px rgba(255, 255, 255, 0.4);
-      }
     }
 
     /* Nur einige größere Sterne flackern */
@@ -122,55 +103,17 @@
       100% { opacity: 1; }
     }
 
-    /* Sternschnuppe */
-    .shooting-star {
-      position: absolute;
-      top: -10px;
-      left: -10px;
-      width: 2px;
-      height: 80px;
-      background: linear-gradient(white, transparent);
-      opacity: 0;
-      transform: rotate(45deg);
-      animation: shoot 10s infinite;
-      z-index: 2;
-    }
-
-    @keyframes shoot {
-      0% {
-        top: -10%;
-        left: -10%;
-        opacity: 0;
-      }
-      5% {
-        top: 30%;
-        left: 30%;
-        opacity: 1;
-      }
-      10% {
-        top: 60%;
-        left: 60%;
-        opacity: 0;
-      }
-      100% {
-        top: 100%;
-        left: 100%;
-        opacity: 0;
-      }
-    }
-
   </style>
 </head>
 <body>
   <div class="stars"></div>
-  <div class="nebula"></div>
+  <div class="milky-way"></div>
   
   <!-- Einige größere Sterne, die flackern -->
   <div class="large-star" style="top: 20%; left: 30%;"></div>
   <div class="large-star" style="top: 50%; left: 60%;"></div>
   <div class="large-star" style="top: 80%; left: 80%;"></div>
-  
-  <div class="shooting-star"></div>
+
   <div class="content">
     stuff made by till.
   </div>
