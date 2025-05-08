@@ -145,19 +145,25 @@
       starsContainer.appendChild(star);
     }
 
-    // Text einmal durchlaufen lassen
-    const words = ["creativity", "art", "videos", "humor", "tech", "apps", "programming", "beer", "content", "stuff"];
-    let wordIndex = 0;
+        // Wörter durchwechseln, aber langsamer werden
+    const words = ["tech", "art", "videos", "apps", "beer", "stuff"];
     const wordElement = document.getElementById('changing-word');
+    let wordIndex = 0;
+    let delay = 200; // Startet schnell (ms)
 
-    const interval = setInterval(() => {
+    function changeWord() {
       wordElement.textContent = words[wordIndex];
       wordIndex++;
 
-      if (wordIndex >= words.length) {
-        clearInterval(interval); // Stoppen, wenn alle Wörter durch sind
+      if (wordIndex < words.length) {
+        // Verzögerung erhöhen (langsamer werden)
+        delay += 100;
+        setTimeout(changeWord, delay);
       }
-    }, 1000); // Alle 1 Sekunden wechseln
+    }
+
+    // Starte den Textwechsel
+    setTimeout(changeWord, delay);
   </script>
 
 </body>
