@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stuff made by Till</title>
+  
+  <!-- Tagesschrift Font einbinden -->
+  <link href="https://fonts.googleapis.com/css2?family=Tagesschrift&display=swap" rel="stylesheet">
+
   <style>
     html, body {
       margin: 0;
@@ -20,7 +24,7 @@
       position: relative;
     }
 
-    /* Viele Sterne, verschiedene Größen */
+    /* Viele kleine Sterne */
     .stars {
       position: absolute;
       width: 300%;
@@ -44,11 +48,11 @@
       to { transform: translate(-25%, 25%); }
     }
 
-    /* Sterne flackern leicht */
+    /* Nur größere Sterne flackern */
     @keyframes twinkle {
-      0% { opacity: 0.8; }
-      50% { opacity: 0.6; }
-      100% { opacity: 0.8; }
+      0% { opacity: 0.6; }
+      50% { opacity: 0.8; }
+      100% { opacity: 0.6; }
     }
 
     /* Nebel */
@@ -74,6 +78,48 @@
       z-index: 1;
       font-size: 4vw;
       text-align: center;
+      font-family: 'Tagesschrift', sans-serif;
+      color: white;
+      text-shadow: 
+        0 0 15px rgba(255, 255, 255, 0.8), 
+        0 0 30px rgba(255, 255, 255, 0.6), 
+        0 0 45px rgba(255, 255, 255, 0.4);
+      animation: textGlow 1.5s ease-in-out infinite alternate;
+    }
+
+    /* Glow-Effekt für den Text */
+    @keyframes textGlow {
+      0% { text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.8), 
+        0 0 20px rgba(255, 255, 255, 0.6), 
+        0 0 30px rgba(255, 255, 255, 0.4);
+      }
+      50% { text-shadow: 
+        0 0 20px rgba(255, 255, 255, 1), 
+        0 0 40px rgba(255, 255, 255, 0.9), 
+        0 0 60px rgba(255, 255, 255, 0.8);
+      }
+      100% { text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.8), 
+        0 0 20px rgba(255, 255, 255, 0.6), 
+        0 0 30px rgba(255, 255, 255, 0.4);
+      }
+    }
+
+    /* Nur einige größere Sterne flackern */
+    .large-star {
+      width: 3px;
+      height: 3px;
+      background-color: white;
+      position: absolute;
+      border-radius: 50%;
+      animation: largeTwinkle 2s infinite ease-in-out alternate;
+    }
+
+    @keyframes largeTwinkle {
+      0% { opacity: 1; }
+      50% { opacity: 0.4; }
+      100% { opacity: 1; }
     }
 
     /* Sternschnuppe */
@@ -118,6 +164,12 @@
 <body>
   <div class="stars"></div>
   <div class="nebula"></div>
+  
+  <!-- Einige größere Sterne, die flackern -->
+  <div class="large-star" style="top: 20%; left: 30%;"></div>
+  <div class="large-star" style="top: 50%; left: 60%;"></div>
+  <div class="large-star" style="top: 80%; left: 80%;"></div>
+  
   <div class="shooting-star"></div>
   <div class="content">
     stuff made by till.
