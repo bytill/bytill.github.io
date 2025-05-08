@@ -20,7 +20,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
       position: relative;
       color: white;
     }
@@ -72,11 +71,11 @@
     }
 
     .floating-image {
-      position: relative;
       width: 200px;
       height: auto;
+      border-radius: 20px;
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
       animation: float 6s ease-in-out infinite;
-      z-index: 2;
       margin-bottom: 20px;
     }
 
@@ -87,15 +86,15 @@
     }
 
     .content {
-      position: relative;
-      z-index: 2;
       font-size: 2vw;
       text-align: center;
-      text-shadow:
-        0 0 5px rgba(255, 255, 255, 0.8),
-        0 0 10px rgba(255, 255, 255, 0.6),
-        0 0 15px rgba(255, 255, 255, 0.4);
     }
+
+    .center-container {
+      text-align: center;
+      z-index: 2;
+    }
+
   </style>
 
 </head>
@@ -113,12 +112,15 @@
   <div class="large-star" style="top: 75%; left: 40%; width: 4px; height: 4px; animation-delay: 4s;"></div>
   <div class="large-star" style="top: 85%; left: 80%; width: 5px; height: 5px; animation-delay: 6s;"></div>
 
-  <!-- dein Bild in der Mitte -->
-  <img src="Meditate.png" alt="Till im Schneidersitz" class="floating-image">
-
-  <!-- Text -->
-  <div class="content">
-    stuff made by till
+  <!-- Container für das Bild und den Text -->
+  <div class="center-container">
+    <!-- dein Bild in der Mitte -->
+    <img src="Meditate.png" alt="Till im Schneidersitz" class="floating-image">
+    
+    <!-- Text -->
+    <div class="content">
+      stuff made by till.
+    </div>
   </div>
 
   <script>
