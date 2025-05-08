@@ -12,19 +12,18 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
       width: 100%;
+      height: 100%;
       overflow: hidden;
       background: radial-gradient(ellipse at bottom, #0b0c2a 0%, #000000 100%);
       font-family: 'Tagesschrift', sans-serif;
-      color: white;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
+      color: white;
     }
 
-    /* Milchstraße */
     .milky-way {
       position: absolute;
       top: 50%;
@@ -36,61 +35,28 @@
                   radial-gradient(circle at 30% 50%, rgba(255,255,255,0.15) 0%, transparent 50%),
                   radial-gradient(circle at 70% 60%, rgba(255,255,255,0.1) 0%, transparent 50%);
       filter: blur(80px);
+      opacity: 0.8;
       z-index: 0;
+    }
+
+    .stars-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
       opacity: 0.8;
     }
 
-    /* Viele Sterne */
-    .stars {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      background: white;
-      box-shadow: 
-        20vw 10vh white,
-        40vw 20vh white,
-        10vw 30vh white,
-        70vw 40vh white,
-        90vw 50vh white,
-        50vw 60vh white,
-        30vw 70vh white,
-        60vw 80vh white,
-        80vw 90vh white,
-        25vw 15vh white,
-        75vw 25vh white,
-        15vw 35vh white,
-        65vw 45vh white,
-        85vw 55vh white,
-        35vw 65vh white,
-        55vw 75vh white,
-        95vw 85vh white,
-        45vw 95vh white,
-        5vw 5vh white,
-        95vw 95vh white,
-        /* viele viele mehr */
-        5vw 80vh white,
-        10vw 90vh white,
-        15vw 70vh white,
-        20vw 60vh white,
-        25vw 50vh white,
-        30vw 40vh white,
-        35vw 30vh white,
-        40vw 20vh white,
-        45vw 10vh white,
-        50vw 5vh white,
-        55vw 15vh white,
-        60vw 25vh white,
-        65vw 35vh white,
-        70vw 45vh white,
-        75vw 55vh white,
-        80vw 65vh white,
-        85vw 75vh white,
-        90vw 85vh white,
-        95vw 95vh white;
-      z-index: 0;
-    }
-
-    /* Einzelne große Sterne, die flackern */
+    /* Flackernde größere Sterne */
     .large-star {
       position: absolute;
       background: white;
@@ -100,43 +66,62 @@
     }
 
     @keyframes twinkle {
-      0% { opacity: 0.5; }
+      0% { opacity: 0.4; }
       50% { opacity: 1; }
-      100% { opacity: 0.5; }
+      100% { opacity: 0.4; }
     }
 
-    /* Text */
     .content {
       position: relative;
       z-index: 1;
       font-size: 4vw;
       text-align: center;
-      text-shadow: 
+      text-shadow:
         0 0 10px rgba(255, 255, 255, 0.8),
         0 0 20px rgba(255, 255, 255, 0.6),
         0 0 30px rgba(255, 255, 255, 0.4);
     }
 
   </style>
+
 </head>
 <body>
 
-  <!-- Viele kleine Sterne -->
-  <div class="stars"></div>
+  <!-- viele viele Sterne -->
+  <div class="stars-container" id="stars"></div>
 
   <!-- Milchstraße -->
   <div class="milky-way"></div>
 
-  <!-- Flackernde größere Sterne -->
-  <div class="large-star" style="top: 25%; left: 30%; width: 4px; height: 4px; animation-delay: 0s;"></div>
-  <div class="large-star" style="top: 50%; left: 60%; width: 5px; height: 5px; animation-delay: 2s;"></div>
-  <div class="large-star" style="top: 75%; left: 40%; width: 3px; height: 3px; animation-delay: 4s;"></div>
-  <div class="large-star" style="top: 85%; left: 80%; width: 6px; height: 6px; animation-delay: 6s;"></div>
+  <!-- größere Sterne (flackern) -->
+  <div class="large-star" style="top: 20%; left: 30%; width: 5px; height: 5px; animation-delay: 0s;"></div>
+  <div class="large-star" style="top: 50%; left: 60%; width: 6px; height: 6px; animation-delay: 2s;"></div>
+  <div class="large-star" style="top: 75%; left: 40%; width: 4px; height: 4px; animation-delay: 4s;"></div>
+  <div class="large-star" style="top: 85%; left: 80%; width: 5px; height: 5px; animation-delay: 6s;"></div>
 
   <!-- Text -->
   <div class="content">
     stuff made by till.
   </div>
+
+  <script>
+    const starsContainer = document.getElementById('stars');
+
+    // Erzeuge 800 kleine Sterne
+    const starCount = 800;
+
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      const size = Math.random() * 1.5; // Sternengröße zwischen 0 und 1.5px
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.opacity = Math.random() * 0.8 + 0.2;
+      starsContainer.appendChild(star);
+    }
+  </script>
 
 </body>
 </html>
