@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Stuff made by Till</title>
 
-  <!-- Google Font -->
+  <!-- Google Font: Tagesschrift -->
   <link href="https://fonts.googleapis.com/css2?family=Tagesschrift&display=swap" rel="stylesheet">
 
   <style>
@@ -13,11 +13,42 @@
       margin: 0;
       padding: 0;
       width: 100%;
-      min-height: 100vh;
+      height: 100%;
       background: radial-gradient(ellipse at bottom, #0b0c2a 0%, #000000 100%);
       font-family: 'Tagesschrift', sans-serif;
-      color: white;
       overflow-x: hidden;
+      color: white;
+    }
+
+    .stars-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .star {
+      position: fixed;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+    }
+
+    .large-star {
+      position: fixed;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: twinkle 4s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.4; }
+      50% { opacity: 1; }
+      100% { opacity: 0.4; }
     }
 
     .milky-way {
@@ -37,33 +68,6 @@
       pointer-events: none;
     }
 
-    .stars-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .star, .large-star {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.7;
-    }
-
-    .large-star {
-      animation: twinkle 4s infinite alternate;
-    }
-
-    @keyframes twinkle {
-      0% { opacity: 0.4; }
-      50% { opacity: 1; }
-      100% { opacity: 0.4; }
-    }
-
     .content-wrapper {
       position: relative;
       z-index: 1;
@@ -74,11 +78,11 @@
       justify-content: center;
       padding: 20px;
       text-align: center;
-      gap: 20px;
     }
 
     .floating-image {
-      width: clamp(150px, 30vw, 250px);
+      width: 200px;
+      max-width: 70%;
       animation: float 4s ease-in-out infinite;
     }
 
@@ -88,42 +92,53 @@
     }
 
     .content {
-      font-size: clamp(24px, 6vw, 48px);
-      font-weight: bold;
+      margin-top: 20px;
+      font-size: 6vw;
+      white-space: nowrap;
     }
 
     .social-links {
+      margin-top: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
+      gap: 30px;
       flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 10px;
+      font-size: 4vw;
     }
 
     .social-links a {
       color: white;
       text-decoration: none;
-      font-size: clamp(14px, 4vw, 20px);
-      transition: color 0.3s;
     }
 
-    .social-links a:hover {
-      color: #aaaaff;
+    /* Make text a bit smaller on very small devices */
+    @media (max-width: 400px) {
+      .content {
+        font-size: 8vw;
+      }
+      .social-links {
+        font-size: 6vw;
+        gap: 20px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="stars-container" id="stars"></div>
+  <!-- All stars and large stars -->
+  <div class="stars-container" id="stars">
+    <div class="large-star" style="top: 20%; left: 30%; width: 5px; height: 5px; animation-delay: 0s;"></div>
+    <div class="large-star" style="top: 50%; left: 60%; width: 6px; height: 6px; animation-delay: 2s;"></div>
+    <div class="large-star" style="top: 75%; left: 40%; width: 4px; height: 4px; animation-delay: 4s;"></div>
+    <div class="large-star" style="top: 85%; left: 80%; width: 5px; height: 5px; animation-delay: 6s;"></div>
+  </div>
+
+  <!-- Milchstraße -->
   <div class="milky-way"></div>
 
-  <div class="large-star" style="top: 20%; left: 30%; width: 5px; height: 5px; animation-delay: 0s;"></div>
-  <div class="large-star" style="top: 50%; left: 60%; width: 6px; height: 6px; animation-delay: 2s;"></div>
-  <div class="large-star" style="top: 75%; left: 40%; width: 4px; height: 4px; animation-delay: 4s;"></div>
-  <div class="large-star" style="top: 85%; left: 80%; width: 5px; height: 5px; animation-delay: 6s;"></div>
-
+  <!-- Main content -->
   <div class="content-wrapper">
     <img src="Meditate.png" alt="Till im Schneidersitz" class="floating-image">
     <div class="content">stuff made by Till</div>
@@ -137,6 +152,8 @@
 
   <script>
     const starsContainer = document.getElementById('stars');
+
+    // Generate lots of small stars
     const starCount = 500;
     for (let i = 0; i < starCount; i++) {
       const star = document.createElement('div');
