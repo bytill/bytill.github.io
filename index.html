@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Stuff made by Till</title>
 
-  <!-- Google Font: Tagesschrift -->
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Tagesschrift&display=swap" rel="stylesheet">
 
   <style>
@@ -13,15 +13,16 @@
       margin: 0;
       padding: 0;
       width: 100%;
-      height: 100%;
-      overflow: hidden;
+      min-height: 100%;
       background: radial-gradient(ellipse at bottom, #0b0c2a 0%, #000000 100%);
       font-family: 'Tagesschrift', sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
       position: relative;
       color: white;
+      overflow-x: hidden;
     }
 
     .milky-way {
@@ -38,6 +39,7 @@
       filter: blur(80px);
       opacity: 0.8;
       z-index: 0;
+      pointer-events: none;
     }
 
     .stars-container {
@@ -50,18 +52,14 @@
       pointer-events: none;
     }
 
-    .star {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.8;
-    }
-
-    .large-star {
+    .star, .large-star {
       position: absolute;
       background: white;
       border-radius: 50%;
       opacity: 0.7;
+    }
+
+    .large-star {
       animation: twinkle 4s infinite alternate;
     }
 
@@ -78,66 +76,70 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+      padding: 20px;
+      gap: 20px;
     }
 
     .floating-image {
-      width: 200px;
+      width: clamp(150px, 30vw, 250px);
       animation: float 4s ease-in-out infinite;
     }
 
     @keyframes float {
-      0%, 100% { transform: translateY(-0px); }
+      0%, 100% { transform: translateY(0px); }
       50% { transform: translateY(10px); }
     }
 
     .content {
-      margin-top: 20px;
-      font-size: 6vw;
-      display: flex;
-      gap: 10px;
-      white-space: nowrap;
+      font-size: clamp(24px, 6vw, 48px);
+      font-weight: bold;
     }
 
-    .changing-word {
-      display: inline-block;
-      min-width: 60px; /* Fixe Breite, damit nichts springt */
-      text-align: center;
+    .social-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .social-links a {
+      color: white;
+      text-decoration: none;
+      font-size: clamp(14px, 4vw, 20px);
+      transition: color 0.3s;
+    }
+
+    .social-links a:hover {
+      color: #aaaaff;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- viele viele Sterne -->
   <div class="stars-container" id="stars"></div>
-
-  <!-- Milchstraße -->
   <div class="milky-way"></div>
 
-  <!-- größere Sterne -->
   <div class="large-star" style="top: 20%; left: 30%; width: 5px; height: 5px; animation-delay: 0s;"></div>
   <div class="large-star" style="top: 50%; left: 60%; width: 6px; height: 6px; animation-delay: 2s;"></div>
   <div class="large-star" style="top: 75%; left: 40%; width: 4px; height: 4px; animation-delay: 4s;"></div>
   <div class="large-star" style="top: 85%; left: 80%; width: 5px; height: 5px; animation-delay: 6s;"></div>
 
-  <!-- Inhalt in der Mitte -->
-<div class="content-wrapper">
-  <img src="Meditate.png" alt="Till im Schneidersitz" class="floating-image">
-  <div class="content">stuff made by Till</div>
-  <div class="social-links" style="display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap;">
-    <a href="https://www.instagram.com/tyllyboy/" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: none;">@tyllyboy</a>
-    <a href="https://www.instagram.com/tillwoe/" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: none;">@tillwoe</a>
-    <a href="https://www.tiktok.com/@tyllyboy" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: none;">@tyllyboy</a>
-    <a href="https://linkedin.com/in/tillmann-woerner" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: none;">@Tillmann Woerner</a>
+  <div class="content-wrapper">
+    <img src="Meditate.png" alt="Till im Schneidersitz" class="floating-image">
+    <div class="content">stuff made by Till</div>
+    <div class="social-links">
+      <a href="https://www.instagram.com/tyllyboy/" target="_blank" rel="noopener noreferrer">@tyllyboy</a>
+      <a href="https://www.instagram.com/tillwoe/" target="_blank" rel="noopener noreferrer">@tillwoe</a>
+      <a href="https://www.tiktok.com/@tyllyboy" target="_blank" rel="noopener noreferrer">@tyllyboy</a>
+      <a href="https://linkedin.com/in/tillmann-woerner" target="_blank" rel="noopener noreferrer">@Tillmann Woerner</a>
+    </div>
   </div>
-</div>
 
-
-  
   <script>
     const starsContainer = document.getElementById('stars');
-
-    // Erzeuge viele kleine Sterne
     const starCount = 500;
     for (let i = 0; i < starCount; i++) {
       const star = document.createElement('div');
