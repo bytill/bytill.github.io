@@ -20,7 +20,7 @@
       position: relative;
     }
 
-    /* VIELE kleine Sterne */
+    /* Viele Sterne, verschiedene Größen */
     .stars {
       position: absolute;
       width: 300%;
@@ -28,19 +28,27 @@
       background: transparent;
       background-image: 
         radial-gradient(white 0.5px, transparent 0.5px),
-        radial-gradient(white 0.5px, transparent 0.5px),
         radial-gradient(white 1px, transparent 1px),
-        radial-gradient(white 1px, transparent 1px);
-      background-size: 50px 50px, 75px 75px, 100px 100px, 150px 150px;
-      background-position: 0 0, 25px 25px, 50px 50px, 75px 75px;
-      animation: moveStars 400s linear infinite;
-      opacity: 0.7;
+        radial-gradient(white 1.5px, transparent 1.5px),
+        radial-gradient(white 2px, transparent 2px);
+      background-size: 50px 50px, 80px 80px, 120px 120px, 180px 180px;
+      background-position: 0 0, 20px 20px, 40px 40px, 60px 60px;
+      animation: moveStars 400s linear infinite, twinkle 2s infinite ease-in-out alternate;
       z-index: 0;
+      opacity: 0.8;
     }
 
+    /* Sterne bewegen sich langsam */
     @keyframes moveStars {
       from { transform: translate(0, 0); }
       to { transform: translate(-25%, 25%); }
+    }
+
+    /* Sterne flackern leicht */
+    @keyframes twinkle {
+      0% { opacity: 0.8; }
+      50% { opacity: 0.6; }
+      100% { opacity: 0.8; }
     }
 
     /* Nebel */
@@ -49,7 +57,7 @@
       width: 400%;
       height: 400%;
       background: radial-gradient(circle at 30% 30%, rgba(128,0,255,0.2) 0%, transparent 50%),
-                  radial-gradient(circle at 70% 70%, rgba(0,255,255,0.2) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 70%, rgba(0,255,255,0.15) 0%, transparent 50%),
                   radial-gradient(circle at 50% 20%, rgba(255,255,255,0.05) 0%, transparent 40%);
       animation: floatNebula 300s linear infinite alternate;
       z-index: 0;
@@ -67,11 +75,50 @@
       font-size: 4vw;
       text-align: center;
     }
+
+    /* Sternschnuppe */
+    .shooting-star {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      width: 2px;
+      height: 80px;
+      background: linear-gradient(white, transparent);
+      opacity: 0;
+      transform: rotate(45deg);
+      animation: shoot 10s infinite;
+      z-index: 2;
+    }
+
+    @keyframes shoot {
+      0% {
+        top: -10%;
+        left: -10%;
+        opacity: 0;
+      }
+      5% {
+        top: 30%;
+        left: 30%;
+        opacity: 1;
+      }
+      10% {
+        top: 60%;
+        left: 60%;
+        opacity: 0;
+      }
+      100% {
+        top: 100%;
+        left: 100%;
+        opacity: 0;
+      }
+    }
+
   </style>
 </head>
 <body>
   <div class="stars"></div>
   <div class="nebula"></div>
+  <div class="shooting-star"></div>
   <div class="content">
     stuff made by till.
   </div>
