@@ -2,26 +2,20 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="theme-color" content="#83eaf1">
+  <meta name="theme-color" content="#ffffff">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Dynamische Wolken mit Tageszeiten</title>
+  <title>Tills stuff</title>
 
   <style>
-    /* Grundstruktur */
     html, body {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
       overflow-x: hidden;
-      background: linear-gradient(to top, #63a4ff, #83eaf1);
-      background-color: #83eaf1;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      position: relative;
+      background: linear-gradient(to bottom, #ffffff 0%, #cbe8f9 20%, #87ceeb 50%, #4682b4 100%);
       font-family: 'Inter', sans-serif;
+      position: relative;
     }
 
     .sky {
@@ -30,8 +24,9 @@
       height: 100vh;
       top: 0;
       left: 0;
-      animation: moveSky 150s linear infinite;
+      animation: moveSky 180s linear infinite;
       z-index: 0;
+      overflow: visible;
       pointer-events: none;
     }
 
@@ -42,41 +37,65 @@
 
     .cloud {
       position: absolute;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 50%;
-      filter: blur(12px);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+      opacity: 0.85;
+      filter: blur(3px);
+      animation: cloudWobble infinite ease-in-out alternate;
+      pointer-events: none;
     }
 
-    .small { width: 60px; height: 35px; }
-    .medium { width: 100px; height: 60px; }
-    .large { width: 140px; height: 80px; }
-
-    .center-image {
-      position: absolute;
-      bottom: 0; /* Bild immer am unteren Rand */
-      width: 100%;
-      max-width: 100vw;
-      height: 50vh; /* Bildhöhe auf 50% der Viewport-Höhe begrenzt */
-      object-fit: contain; /* Bild wird nicht verzerrt */
-      z-index: 2;
-      transform: translateY(5%);
+    @keyframes cloudWobble {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(15px); }
+      100% { transform: translateY(0px); }
     }
 
+    /* Cloud spezifische Positionen */
+.cloud-1 { left: 8vw; top: 5vh; width: 12vw; }
+.cloud-2 { left: 25vw; top: 12vh; width: 14vw; }
+.cloud-3 { left: 45vw; top: 20vh; width: 10vw; }
+.cloud-4 { left: 60vw; top: 25vh; width: 13vw; }
+.cloud-5 { left: 80vw; top: 30vh; width: 16vw; }
+.cloud-6 { left: 20vw; top: 45vh; width: 12vw; }
+.cloud-7 { left: 35vw; top: 60vh; width: 15vw; }
+
+/* Seite 2 */
+.cloud-8 { left: 110vw; top: 5vh; width: 12vw; }
+.cloud-9 { left: 130vw; top: 15vh; width: 14vw; }
+.cloud-10 { left: 150vw; top: 22vh; width: 10vw; }
+.cloud-11 { left: 170vw; top: 30vh; width: 13vw; }
+.cloud-12 { left: 190vw; top: 40vh; width: 16vw; }
+.cloud-13 { left: 210vw; top: 55vh; width: 12vw; }
+.cloud-14 { left: 230vw; top: 70vh; width: 15vw; }
+
+    /* Responsive Anpassungen */
+    @media (max-width: 768px) {
+      .cloud {
+        width: 18vw;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cloud {
+        width: 24vw;
+      }
+    }
+
+    /* Text */
     .image-text {
       position: absolute;
-      top: 10%; /* Titel immer 10px vom oberen Rand */
+      top: 10%;
       left: 50%;
       transform: translateX(-50%);
-      font-family: 'Tagesschrift', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-size: 2rem;
-      color: rgba(255, 255, 255, 0.9);
+      color: rgba(0, 0, 0,);
+      opacity: 0.66;
       font-weight: bold;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
       z-index: 3;
       text-align: center;
     }
 
+    /* Links */
     .links-container {
       margin-top: 20px;
       display: flex;
@@ -86,7 +105,7 @@
       padding: 10px 0;
       max-width: 90vw;
       position: absolute;
-      top: calc(10% + 3rem); /* Direkt unter dem Titel */
+      top: calc(10% + 3rem);
       left: 50%;
       transform: translateX(-50%);
     }
@@ -108,38 +127,44 @@
       background: rgba(255, 255, 255, 0.8);
     }
 
-    @media (max-width: 480px) {
-      .center-image {
-        height: 50vh; /* Bei kleinen Bildschirmen bleibt die Höhe des Bildes gleich */
-      }
-      .image-text {
-        font-size: 20px;
-        top: 10%;
-      }
-      .link {
-        font-size: 18px;
-        margin: 0 8px;
-      }
-        .small { width: 270px; height: 150px; }
-        .medium { width: 420px; height: 240px; }
-        .large { width: 600px; height: 360px; }
+    /* Profilbild */
+    .center-image {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      max-width: 100vw;
+      height: 50vh;
+      object-fit: contain;
+      z-index: 2;
+      transform: translateY(5%);
     }
-
-    @media (max-width: 768px) {
-    .small { width: 90px; height: 50px; }
-    .medium { width: 140px; height: 80px; }
-    .large { width: 200px; height: 120px; }
-  }
   </style>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Tagesschrift&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-  <div class="sky" id="sky"></div>
+  <div class="sky" id="sky">
+    <!-- Seite 1 Wolken -->
+    <img src="cloud-1.png" alt="Wolke 1" class="cloud cloud-1">
+    <img src="cloud-2.png" alt="Wolke 2" class="cloud cloud-2">
+    <img src="cloud-3.png" alt="Wolke 3" class="cloud cloud-3">
+    <img src="cloud-4.png" alt="Wolke 4" class="cloud cloud-4">
+    <img src="cloud-5.png" alt="Wolke 5" class="cloud cloud-5">
+    <img src="cloud-6.png" alt="Wolke 6" class="cloud cloud-6">
+    <img src="cloud-7.png" alt="Wolke 7" class="cloud cloud-7">
+
+    <!-- Seite 2 Wolken (zweite Hälfte) -->
+    <img src="cloud-1.png" alt="Wolke 8" class="cloud cloud-8">
+    <img src="cloud-2.png" alt="Wolke 9" class="cloud cloud-9">
+    <img src="cloud-3.png" alt="Wolke 10" class="cloud cloud-10">
+    <img src="cloud-4.png" alt="Wolke 11" class="cloud cloud-11">
+    <img src="cloud-5.png" alt="Wolke 12" class="cloud cloud-12">
+    <img src="cloud-6.png" alt="Wolke 13" class="cloud cloud-13">
+    <img src="cloud-7.png" alt="Wolke 14" class="cloud cloud-14">
+  </div>
 
   <div class="image-text">stuff made by Till.</div>
 
@@ -150,53 +175,6 @@
   </div>
 
   <img src="profil-till.png" alt="Mittelbild" class="center-image">
-
-  <script>
-    const sky = document.getElementById('sky');
-
-    // Wolken erzeugen
-    const baseCloudWidth = 100;
-    const baseCloudHeight = 60;
-    const cloudMarginX = 100;
-    const cloudMarginY = 150;
-    const totalCloudWidth = baseCloudWidth + cloudMarginX;
-    const totalCloudHeight = baseCloudHeight + cloudMarginY;
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-    const columns = Math.floor(screenWidth / totalCloudWidth);
-    const rows = Math.floor(screenHeight / totalCloudHeight);
-    let cloudCount = 0;
-
-    for (let repeat = 0; repeat < 2; repeat++) {
-      for (let y = 0; y < rows; y++) {
-        for (let x = 0; x < columns; x++) {
-          const cloud = document.createElement('div');
-          cloud.classList.add('cloud');
-
-          cloudCount++;
-          if (cloudCount % 5 === 0) {
-            cloud.classList.add('large');
-          } else if (cloudCount % 3 === 0) {
-            cloud.classList.add('medium');
-          } else {
-            cloud.classList.add('small');
-          }
-
-          let offsetX = x * totalCloudWidth + repeat * screenWidth;
-          let offsetY = y * totalCloudHeight;
-
-          if (y % 2 !== 0) {
-            offsetX += totalCloudWidth / 2;
-          }
-
-          cloud.style.left = offsetX + "px";
-          cloud.style.top = offsetY + "px";
-
-          sky.appendChild(cloud);
-        }
-      }
-    }
-  </script>
 
 </body>
 </html>
