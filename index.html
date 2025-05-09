@@ -194,27 +194,6 @@
         }
       }
     }
-
-    // Tageszeiten simulieren
-    function updateBackground() {
-      const hour = new Date().getHours();
-      let gradient;
-
-      if (hour >= 5 && hour < 8) { // Sonnenaufgang
-        gradient = 'linear-gradient(120deg, #FFB347, #FFD194)';
-      } else if (hour >= 8 && hour < 18) { // Tag
-        gradient = 'linear-gradient(to top, #63a4ff, #83eaf1)';
-      } else if (hour >= 18 && hour < 21) { // Sonnenuntergang
-        gradient = 'linear-gradient(300deg, #ff7e5f, #feb47b)';
-      } else { // Nacht
-        gradient = 'linear-gradient(to top, #0f2027, #203a43, #2c5364)';
-      }
-
-      document.body.style.background = gradient;
-    }
-
-    updateBackground();
-    setInterval(updateBackground, 60000); // alle 60 Sekunden prüfen
   </script>
 
 </body>
