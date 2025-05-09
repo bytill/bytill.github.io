@@ -112,13 +112,22 @@
       }
       .image-text {
         font-size: 1.5rem;
-        top: 10%; /* Titel immer 10px vom oberen Rand */
+        top: 10px; /* Titel immer 10px vom oberen Rand */
       }
       .link {
         font-size: 1rem;
         margin: 0 8px;
       }
+        .small { width: 180px; height: 100px; }
+        .medium { width: 280px; height: 160px; }
+        .large { width: 400px; height: 120px; }
     }
+
+    @media (max-width: 768px) {
+    .small { width: 90px; height: 50px; }
+    .medium { width: 140px; height: 80px; }
+    .large { width: 200px; height: 120px; }
+  }
   </style>
 
   <!-- Fonts -->
