@@ -46,14 +46,17 @@
     .medium { width: 10vw; height: 6vw; }
     .large { width: 14vw; height: 8vw; }
 
-    .center-image {
-      position: absolute;
-      bottom: 0;
-      height: 60vh;
-      transform: translateY(10%);
-      z-index: 1;
-      max-width: 90%;
-    }
+.center-image {
+  position: absolute;
+  bottom: 0;
+  max-height: 65vh;
+  max-width: 90vw;
+  width: auto;
+  height: auto;
+  transform: translateY(10%);
+  z-index: 1;
+  object-fit: contain;
+}    
 
     .image-text {
       position: absolute;
