@@ -2,18 +2,21 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dynamische Wolken mit Sonnenverlauf</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Dynamische Wolken mit Tageszeiten</title>
+
   <style>
+    /* Grundstruktur */
     html, body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
       background: linear-gradient(to top, #63a4ff, #83eaf1);
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      justify-content: flex-start;
       align-items: center;
       position: relative;
       font-family: 'Inter', sans-serif;
@@ -23,10 +26,11 @@
       position: absolute;
       width: 200vw;
       height: 100vh;
-      animation: moveSky 240s linear infinite;
       top: 0;
       left: 0;
+      animation: moveSky 240s linear infinite;
       z-index: 0;
+      pointer-events: none;
     }
 
     @keyframes moveSky {
@@ -42,81 +46,89 @@
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
     }
 
-    .small { width: 6vw; height: 3.5vw; }
-    .medium { width: 10vw; height: 6vw; }
-    .large { width: 14vw; height: 8vw; }
+    .small { width: 60px; height: 35px; }
+    .medium { width: 100px; height: 60px; }
+    .large { width: 140px; height: 80px; }
 
     .center-image {
+      width: 80%;
+      max-width: 400px;
+      height: auto;
+      object-fit: contain;
       position: absolute;
       bottom: 0;
-      max-height: 65vh;
-      max-width: 90vw;
-      width: auto;
-      height: auto;
-      transform: translateY(10%);
-      z-index: 1;
-      object-fit: contain;
-    }    
+      z-index: 2;
+      transform: translateY(20px);
+    }
 
     .image-text {
       position: absolute;
-      top: 15%;
+      top: 10%; /* Ein Drittel des Viewports */
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translateX(-50%);
       font-family: 'Tagesschrift', sans-serif;
-      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      font-size: 2rem;
       color: rgba(255, 255, 255, 0.9);
       font-weight: bold;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-      z-index: 2;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+      z-index: 3;
       text-align: center;
-      pointer-events: none;
     }
 
     .links-container {
-      position: absolute;
-      top: 25%;
-      left: 50%;
-      transform: translateX(-50%);
+      margin-top: 10px;
       display: flex;
       overflow-x: auto;
       white-space: nowrap;
       z-index: 3;
       padding: 10px 0;
       max-width: 90vw;
-      gap: 16px;
-      scrollbar-width: none;
-    }
-    .links-container::-webkit-scrollbar {
-      display: none;
+      position: absolute;
+      top: 20%; /* Direkt unterhalb des Textes */
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     .link {
+      margin: 0 10px;
       font-family: 'Inter', sans-serif;
-      font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-      font-weight: 100;
+      font-weight: 300;
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.9);
       text-decoration: none;
-      color: rgba(90, 90, 90, 0.85);
-      padding: 10px 18px;
-      background-color: rgba(255, 255, 255, 0.3);
-      border-radius: 10px;
-      backdrop-filter: blur(4px);
-      transition: background-color 0.3s, transform 0.2s;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: background-color 0.3s;
     }
+
     .link:hover {
-      background-color: rgba(255, 255, 255, 0.6);
-      transform: scale(1.05);
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    @media (max-width: 480px) {
+      .center-image {
+        width: 90%;
+        max-width: 320px;
+        transform: translateY(0);
+      }
+      .image-text {
+        font-size: 1.5rem;
+        top: 25%;
+      }
+      .link {
+        font-size: 1rem;
+        margin: 0 8px;
+      }
     }
   </style>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Tagesschrift&display=swap" rel="stylesheet">
 </head>
 
 <body>
-
-  <img src="profil-till.png" alt="Mittelbild" class="center-image">
 
   <div class="sky" id="sky"></div>
 
@@ -128,87 +140,74 @@
     <a href="#" class="link">Contact</a>
   </div>
 
+  <img src="profil-till.png" alt="Mittelbild" class="center-image">
+
   <script>
     const sky = document.getElementById('sky');
 
-    function createClouds() {
-      const baseCloudWidth = window.innerWidth * 0.1;
-      const baseCloudHeight = window.innerHeight * 0.06;
-      const cloudMarginX = baseCloudWidth;
-      const cloudMarginY = baseCloudHeight * 2.5;
+    // Wolken erzeugen
+    const baseCloudWidth = 100;
+    const baseCloudHeight = 60;
+    const cloudMarginX = 100;
+    const cloudMarginY = 150;
+    const totalCloudWidth = baseCloudWidth + cloudMarginX;
+    const totalCloudHeight = baseCloudHeight + cloudMarginY;
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    const columns = Math.floor(screenWidth / totalCloudWidth);
+    const rows = Math.floor(screenHeight / totalCloudHeight);
+    let cloudCount = 0;
 
-      const totalCloudWidth = baseCloudWidth + cloudMarginX;
-      const totalCloudHeight = baseCloudHeight + cloudMarginY;
+    for (let repeat = 0; repeat < 2; repeat++) {
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < columns; x++) {
+          const cloud = document.createElement('div');
+          cloud.classList.add('cloud');
 
-      const screenWidth = window.innerWidth;
-      const screenHeight = window.innerHeight;
-
-      const columns = Math.ceil(screenWidth / totalCloudWidth);
-      const rows = Math.ceil(screenHeight / totalCloudHeight);
-
-      let cloudCount = 0;
-      for (let repeat = 0; repeat < 2; repeat++) {
-        for (let y = 0; y < rows; y++) {
-          for (let x = 0; x < columns; x++) {
-            const cloud = document.createElement('div');
-            cloud.classList.add('cloud');
-
-            cloudCount++;
-            if (cloudCount % 5 === 0) {
-              cloud.classList.add('large');
-            } else if (cloudCount % 3 === 0) {
-              cloud.classList.add('medium');
-            } else {
-              cloud.classList.add('small');
-            }
-
-            let offsetX = x * totalCloudWidth + repeat * screenWidth;
-            let offsetY = y * totalCloudHeight;
-
-            if (y % 2 !== 0) {
-              offsetX += totalCloudWidth / 2;
-            }
-
-            cloud.style.left = offsetX + "px";
-            cloud.style.top = offsetY + "px";
-
-            sky.appendChild(cloud);
+          cloudCount++;
+          if (cloudCount % 5 === 0) {
+            cloud.classList.add('large');
+          } else if (cloudCount % 3 === 0) {
+            cloud.classList.add('medium');
+          } else {
+            cloud.classList.add('small');
           }
+
+          let offsetX = x * totalCloudWidth + repeat * screenWidth;
+          let offsetY = y * totalCloudHeight;
+
+          if (y % 2 !== 0) {
+            offsetX += totalCloudWidth / 2;
+          }
+
+          cloud.style.left = offsetX + "px";
+          cloud.style.top = offsetY + "px";
+
+          sky.appendChild(cloud);
         }
       }
     }
 
+    // Tageszeiten simulieren
     function updateBackground() {
-      const now = new Date();
-      const hour = now.getHours();
-      let targetBackground = "";
+      const hour = new Date().getHours();
+      let gradient;
 
-      if (hour >= 5 && hour < 8) {
-        // Sunrise (bottom left glow)
-        targetBackground = "linear-gradient(to top left, #ff512f, #f09819, #ffe259)";
-      } else if (hour >= 8 && hour < 18) {
-        // Day
-        targetBackground = "linear-gradient(to top, #63a4ff, #83eaf1)";
-      } else if (hour >= 18 && hour < 21) {
-        // Sunset (bottom right glow)
-        targetBackground = "linear-gradient(to top right, #0b486b, #f56217, #ff512f)";
-      } else {
-        // Night
-        targetBackground = "linear-gradient(to top, #0f2027, #203a43, #2c5364)";
+      if (hour >= 5 && hour < 8) { // Sonnenaufgang
+        gradient = 'linear-gradient(120deg, #FFB347, #FFD194)';
+      } else if (hour >= 8 && hour < 18) { // Tag
+        gradient = 'linear-gradient(to top, #63a4ff, #83eaf1)';
+      } else if (hour >= 18 && hour < 21) { // Sonnenuntergang
+        gradient = 'linear-gradient(300deg, #ff7e5f, #feb47b)';
+      } else { // Nacht
+        gradient = 'linear-gradient(to top, #0f2027, #203a43, #2c5364)';
       }
 
-      document.body.style.background = targetBackground;
+      document.body.style.background = gradient;
     }
 
-    window.addEventListener('resize', () => {
-      sky.innerHTML = '';
-      createClouds();
-    });
-
-    createClouds();
     updateBackground();
-
-    setInterval(updateBackground, 60000); // check every minute
+    setInterval(updateBackground, 60000); // alle 60 Sekunden prüfen
   </script>
 
 </body>
