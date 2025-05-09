@@ -3,12 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dynamische Wolken mit Tageszeiten</title>
-
-  <!-- Google Fonts für Inter Thin und Tagesschrift -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Tagesschrift&display=swap" rel="stylesheet">
-
+  <title>Dynamische Wolken mit Sonnenverlauf</title>
   <style>
     html, body {
       margin: 0;
@@ -21,18 +16,7 @@
       justify-content: center;
       align-items: center;
       position: relative;
-    }
-
-    .background-fade {
-      position: absolute;
-      width: 100vw;
-      height: 100vh;
-      top: 0;
-      left: 0;
-      z-index: 0;
-      pointer-events: none;
-      transition: opacity 5s ease, background 10s ease;
-      opacity: 1;
+      font-family: 'Inter', sans-serif;
     }
 
     .sky {
@@ -40,7 +24,9 @@
       width: 200vw;
       height: 100vh;
       animation: moveSky 240s linear infinite;
-      z-index: 1;
+      top: 0;
+      left: 0;
+      z-index: 0;
     }
 
     @keyframes moveSky {
@@ -56,16 +42,17 @@
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
     }
 
-    .small { width: 60px; height: 35px; }
-    .medium { width: 100px; height: 60px; }
-    .large { width: 140px; height: 80px; }
+    .small { width: 6vw; height: 3.5vw; }
+    .medium { width: 10vw; height: 6vw; }
+    .large { width: 14vw; height: 8vw; }
 
     .center-image {
       position: absolute;
       bottom: 0;
-      height: 70vh;
+      height: 60vh;
       transform: translateY(10%);
-      z-index: 2;
+      z-index: 1;
+      max-width: 90%;
     }
 
     .image-text {
@@ -74,55 +61,63 @@
       left: 50%;
       transform: translate(-50%, -50%);
       font-family: 'Tagesschrift', sans-serif;
-      font-size: 2rem;
-      color: rgba(255, 255, 255, 0.8);
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      color: rgba(255, 255, 255, 0.9);
       font-weight: bold;
-      text-shadow: 1px 1px 2.5px rgba(0, 0, 0, 0.7);
-      z-index: 3;
-      transition: text-shadow 1s ease;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+      z-index: 2;
+      text-align: center;
+      pointer-events: none;
     }
 
     .links-container {
       position: absolute;
-      top: 20%;
+      top: 25%;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       overflow-x: auto;
       white-space: nowrap;
-      z-index: 4;
+      z-index: 3;
       padding: 10px 0;
       max-width: 90vw;
+      gap: 16px;
+      scrollbar-width: none;
+    }
+    .links-container::-webkit-scrollbar {
+      display: none;
     }
 
     .link {
-      margin-right: 20px;
       font-family: 'Inter', sans-serif;
-      font-size: 1.2rem;
-      text-decoration: none;
-      color: rgba(255, 255, 255);
+      font-size: clamp(0.9rem, 2.5vw, 1.2rem);
       font-weight: 100;
-      padding: 10px;
-      background-color: rgba(0, 0, 0, 0.3);
-      border-radius: 5px;
-      transition: background-color 0.3s;
+      text-decoration: none;
+      color: rgba(90, 90, 90, 0.85);
+      padding: 10px 18px;
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+      transition: background-color 0.3s, transform 0.2s;
     }
-
     .link:hover {
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: rgba(255, 255, 255, 0.6);
+      transform: scale(1.05);
     }
   </style>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tagesschrift&display=swap" rel="stylesheet">
 </head>
 
 <body>
-
-  <div class="background-fade" id="backgroundFade"></div>
 
   <img src="profil-till.png" alt="Mittelbild" class="center-image">
 
   <div class="sky" id="sky"></div>
 
-  <div class="image-text" id="mainText">stuff made by Till.</div>
+  <div class="image-text">stuff made by Till.</div>
 
   <div class="links-container">
     <a href="#" class="link">About Me</a>
@@ -132,83 +127,85 @@
 
   <script>
     const sky = document.getElementById('sky');
-    const backgroundFade = document.getElementById('backgroundFade');
-    const text = document.getElementById('mainText');
 
-    const baseCloudWidth = 100;
-    const baseCloudHeight = 60;
-    const cloudMarginX = 100;
-    const cloudMarginY = 150;
-    const totalCloudWidth = baseCloudWidth + cloudMarginX;
-    const totalCloudHeight = baseCloudHeight + cloudMarginY;
+    function createClouds() {
+      const baseCloudWidth = window.innerWidth * 0.1;
+      const baseCloudHeight = window.innerHeight * 0.06;
+      const cloudMarginX = baseCloudWidth;
+      const cloudMarginY = baseCloudHeight * 2.5;
 
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-    const columns = Math.floor(screenWidth / totalCloudWidth);
-    const rows = Math.floor(screenHeight / totalCloudHeight);
+      const totalCloudWidth = baseCloudWidth + cloudMarginX;
+      const totalCloudHeight = baseCloudHeight + cloudMarginY;
 
-    let cloudCount = 0;
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
 
-    for (let repeat = 0; repeat < 2; repeat++) {
-      for (let y = 0; y < rows; y++) {
-        for (let x = 0; x < columns; x++) {
-          const cloud = document.createElement('div');
-          cloud.classList.add('cloud');
-          cloudCount++;
+      const columns = Math.ceil(screenWidth / totalCloudWidth);
+      const rows = Math.ceil(screenHeight / totalCloudHeight);
 
-          if (cloudCount % 5 === 0) {
-            cloud.classList.add('large');
-          } else if (cloudCount % 3 === 0) {
-            cloud.classList.add('medium');
-          } else {
-            cloud.classList.add('small');
+      let cloudCount = 0;
+      for (let repeat = 0; repeat < 2; repeat++) {
+        for (let y = 0; y < rows; y++) {
+          for (let x = 0; x < columns; x++) {
+            const cloud = document.createElement('div');
+            cloud.classList.add('cloud');
+
+            cloudCount++;
+            if (cloudCount % 5 === 0) {
+              cloud.classList.add('large');
+            } else if (cloudCount % 3 === 0) {
+              cloud.classList.add('medium');
+            } else {
+              cloud.classList.add('small');
+            }
+
+            let offsetX = x * totalCloudWidth + repeat * screenWidth;
+            let offsetY = y * totalCloudHeight;
+
+            if (y % 2 !== 0) {
+              offsetX += totalCloudWidth / 2;
+            }
+
+            cloud.style.left = offsetX + "px";
+            cloud.style.top = offsetY + "px";
+
+            sky.appendChild(cloud);
           }
-
-          let offsetX = x * totalCloudWidth + repeat * screenWidth;
-          let offsetY = y * totalCloudHeight;
-
-          if (y % 2 !== 0) {
-            offsetX += totalCloudWidth / 2;
-          }
-
-          cloud.style.left = offsetX + "px";
-          cloud.style.top = offsetY + "px";
-
-          sky.appendChild(cloud);
         }
       }
     }
 
-    function updateBackgroundSmooth() {
-      const hour = new Date().getHours();
+    function updateBackground() {
+      const now = new Date();
+      const hour = now.getHours();
       let targetBackground = "";
-      let isNight = false;
 
       if (hour >= 5 && hour < 8) {
-        // Früh: Sonnenaufgang aus unten links
+        // Sunrise (bottom left glow)
         targetBackground = "linear-gradient(to top left, #ff512f, #f09819, #ffe259)";
-    } else if (hour >= 8 && hour < 17) {
-        // Tag: normaler blauer Himmel
+      } else if (hour >= 8 && hour < 18) {
+        // Day
         targetBackground = "linear-gradient(to top, #63a4ff, #83eaf1)";
-    } else if (hour >= 17 && hour < 21) {
-        // Abend: Sonnenuntergang aus unten rechts
+      } else if (hour >= 18 && hour < 21) {
+        // Sunset (bottom right glow)
         targetBackground = "linear-gradient(to top right, #0b486b, #f56217, #ff512f)";
-    } else {
-     // Nacht: dunkel
+      } else {
+        // Night
         targetBackground = "linear-gradient(to top, #0f2027, #203a43, #2c5364)";
-        isNight = true;
       }
 
-      backgroundFade.style.opacity = 0.5;
-
-      setTimeout(() => {
-        backgroundFade.style.background = targetBackground;
-        backgroundFade.style.opacity = 1;
-      });
+      document.body.style.background = targetBackground;
     }
 
-    updateBackgroundSmooth();
-    setInterval(updateBackgroundSmooth, 60000); // Jede Minute prüfen
+    window.addEventListener('resize', () => {
+      sky.innerHTML = '';
+      createClouds();
+    });
+
+    createClouds();
+    updateBackground();
+
+    setInterval(updateBackground, 60000); // check every minute
   </script>
 
 </body>
