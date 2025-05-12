@@ -49,7 +49,7 @@
       100% { transform: translateY(0px); }
     }
 
-    /* Wolken Positionen */
+    /* Wolken für Desktop */
     .cloud-1 { left: 8vw; top: 5vh; width: 12vw; }
     .cloud-2 { left: 25vw; top: 12vh; width: 14vw; }
     .cloud-3 { left: 45vw; top: 20vh; width: 10vw; }
@@ -57,9 +57,8 @@
     .cloud-5 { left: 80vw; top: 30vh; width: 16vw; }
     .cloud-6 { left: 20vw; top: 45vh; width: 12vw; }
     .cloud-7 { left: 35vw; top: 60vh; width: 15vw; }
-
     .cloud-8 { left: 108vw; top: 5vh; width: 12vw; }
-    .cloud-9 { left: 1%; top: 12vh; width: 14vw; }
+    .cloud-9 { left: 125vw; top: 12vh; width: 14vw; }
     .cloud-10 { left: 145vw; top: 20vh; width: 10vw; }
     .cloud-11 { left: 160vw; top: 25vh; width: 13vw; }
     .cloud-12 { left: 180vw; top: 30vh; width: 16vw; }
@@ -67,12 +66,10 @@
     .cloud-14 { left: 135vw; top: 60vh; width: 15vw; }
 
     .center-content {
-      position: relative;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       text-align: center;
       z-index: 2;
+      padding-top: 20vh;
+      position: relative;
     }
 
     .center-image {
@@ -86,7 +83,6 @@
       font-size: 10px;
       color: #444;
       font-weight: 300;
-      transform: translateY(-10px);
     }
 
     .titles-links-container {
@@ -101,6 +97,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-width: 200px;
     }
 
     .title-block h2 {
@@ -121,13 +118,61 @@
       color: rgba(0, 0, 0, 0.5);
       font-size: 14px;
       transition: color 0.3s;
-      font-size: 14px;
     }
 
     .link-list a:hover {
       color: rgba(0, 0, 0, 0.9);
     }
 
+    /* Mobile Optimierung */
+    @media (max-width: 768px) {
+      .center-content {
+        padding-top: 10vh;
+      }
+
+      .center-image {
+        max-height: 25vh;
+      }
+
+      .titles-links-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .title-block {
+        width: 100%;
+      }
+
+      .link-list a {
+        font-size: 13px;
+      }
+
+      /* Wolken auf Mobile größer und langsamer */
+      .sky {
+        animation: moveSkyMobile 600s linear infinite;
+      }
+
+      @keyframes moveSkyMobile {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100vw); }
+      }
+
+      .cloud {
+        filter: blur(3px);
+      }
+
+      /* Weniger Wolken auf Handys */
+      .cloud-1, .cloud-4, .cloud-7, .cloud-6, .cloud-8, .cloud-14, .cloud-13 {
+        width: 20vw; /* Größer */
+      }
+
+      /* Reduziere Wolken */
+      .cloud-2, .cloud-3, .cloud-5, .cloud-9,
+      .cloud-10, .cloud-11, .cloud-12{
+        display: none;
+      }
+    }
   </style>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;500&display=swap" rel="stylesheet">
@@ -135,7 +180,6 @@
 
 <body>
 
-<!-- Himmel + Wolken -->
 <div class="sky" id="sky">
   <img src="cloud-1.png" alt="Wolke 1" class="cloud cloud-1">
   <img src="cloud-2.png" alt="Wolke 2" class="cloud cloud-2">
@@ -145,7 +189,7 @@
   <img src="cloud-6.png" alt="Wolke 6" class="cloud cloud-6">
   <img src="cloud-7.png" alt="Wolke 7" class="cloud cloud-7">
   <img src="cloud-1.png" alt="Wolke 8" class="cloud cloud-8">
-  <img src="cloud-2.png" alt="Wolke 9" class="cloud cloud-8">
+  <img src="cloud-2.png" alt="Wolke 9" class="cloud cloud-9">
   <img src="cloud-3.png" alt="Wolke 10" class="cloud cloud-10">
   <img src="cloud-4.png" alt="Wolke 11" class="cloud cloud-11">
   <img src="cloud-5.png" alt="Wolke 12" class="cloud cloud-12">
@@ -153,15 +197,12 @@
   <img src="cloud-7.png" alt="Wolke 14" class="cloud cloud-14">
 </div>
 
-<!-- Inhalt -->
 <div class="center-content">
   <img src="profil-till.png" alt="Profilbild" class="center-image">
 
-  <!-- Neuer Text -->
   <div class="subtitle">stuff made by Till.</div>
 
   <div class="titles-links-container">
-    <!-- Block 1 -->
     <div class="title-block">
       <h2>Personal</h2>
       <div class="link-list">
@@ -172,7 +213,6 @@
       </div>
     </div>
 
-    <!-- Block 2 -->
     <div class="title-block">
       <h2>Projects</h2>
       <div class="link-list">
@@ -180,7 +220,6 @@
       </div>
     </div>
 
-    <!-- Block 3 -->
     <div class="title-block">
       <h2>Contact</h2>
       <div class="link-list">
