@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="theme-color" content="#ffffff">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Tills stuff</title>
+  <title>Tills Stuff</title>
 
   <style>
     html, body {
@@ -24,7 +24,7 @@
       height: 100vh;
       top: 0;
       left: 0;
-      animation: moveSky 180s linear infinite;
+      animation: moveSky 300s linear infinite;
       z-index: 0;
       overflow: visible;
       pointer-events: none;
@@ -38,7 +38,7 @@
     .cloud {
       position: absolute;
       opacity: 0.85;
-      filter: blur(3px);
+      filter: blur(5px);
       animation: cloudWobble infinite ease-in-out alternate;
       pointer-events: none;
     }
@@ -49,130 +49,150 @@
       100% { transform: translateY(0px); }
     }
 
-    /* Cloud spezifische Positionen */
-.cloud-1 { left: 8vw; top: 5vh; width: 12vw; }
-.cloud-2 { left: 25vw; top: 12vh; width: 14vw; }
-.cloud-3 { left: 45vw; top: 20vh; width: 10vw; }
-.cloud-4 { left: 60vw; top: 25vh; width: 13vw; }
-.cloud-5 { left: 80vw; top: 30vh; width: 16vw; }
-.cloud-6 { left: 20vw; top: 45vh; width: 12vw; }
-.cloud-7 { left: 35vw; top: 60vh; width: 15vw; }
+    /* Wolken Positionen */
+    .cloud-1 { left: 8vw; top: 5vh; width: 12vw; }
+    .cloud-2 { left: 25vw; top: 12vh; width: 14vw; }
+    .cloud-3 { left: 45vw; top: 20vh; width: 10vw; }
+    .cloud-4 { left: 60vw; top: 25vh; width: 13vw; }
+    .cloud-5 { left: 80vw; top: 30vh; width: 16vw; }
+    .cloud-6 { left: 20vw; top: 45vh; width: 12vw; }
+    .cloud-7 { left: 35vw; top: 60vh; width: 15vw; }
 
-/* Seite 2 */
-.cloud-8 { left: 110vw; top: 5vh; width: 12vw; }
-.cloud-9 { left: 130vw; top: 15vh; width: 14vw; }
-.cloud-10 { left: 150vw; top: 22vh; width: 10vw; }
-.cloud-11 { left: 170vw; top: 30vh; width: 13vw; }
-.cloud-12 { left: 190vw; top: 40vh; width: 16vw; }
-.cloud-13 { left: 210vw; top: 55vh; width: 12vw; }
-.cloud-14 { left: 230vw; top: 70vh; width: 15vw; }
+    .cloud-8 { left: 108vw; top: 5vh; width: 12vw; }
+    .cloud-9 { left: 1%; top: 12vh; width: 14vw; }
+    .cloud-10 { left: 145vw; top: 20vh; width: 10vw; }
+    .cloud-11 { left: 160vw; top: 25vh; width: 13vw; }
+    .cloud-12 { left: 180vw; top: 30vh; width: 16vw; }
+    .cloud-13 { left: 120vw; top: 45vh; width: 12vw; }
+    .cloud-14 { left: 135vw; top: 60vh; width: 15vw; }
 
-    /* Responsive Anpassungen */
-    @media (max-width: 768px) {
-      .cloud {
-        width: 18vw;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .cloud {
-        width: 24vw;
-      }
-    }
-
-    /* Text */
-    .image-text {
-      position: absolute;
-      bottom: 20px;
+    .center-content {
+      position: relative;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.1);
-      font-weight: bold;
-      z-index: 3;
+      transform: translate(-50%, -50%);
       text-align: center;
-    }
-
-    /* Links */
-    .links-container {
-      margin-top: 20px;
-      display: flex;
-      overflow-x: auto;
-      white-space: nowrap;
-      z-index: 3;
-      padding: 10px 0;
-      max-width: 90vw;
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .link {
-      margin: 0 10px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.5);
-      text-decoration: none;
-      background: rgba(255, 255, 255, 0.2);
-      padding: 8px 12px;
-      border-radius: 6px;
-      transition: background-color 0.3s;
-    }
-
-    .link:hover {
-      background: rgba(255, 255, 255, 0.6);
-    }
-
-    /* Profilbild */
-    .center-image {
-      position: absolute;
-      top: 25%;
-      width: 100%;
-      max-width: 100vw;
-      height: 50vh;
-      object-fit: contain;
       z-index: 2;
     }
+
+    .center-image {
+      max-height: 30vh;
+      max-width: 90vw;
+      object-fit: contain;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      font-size: 10px;
+      color: #444;
+      font-weight: 300;
+      transform: translateY(-10px);
+    }
+
+    .titles-links-container {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .title-block h2 {
+      margin: 10px 0;
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.2);
+    }
+
+    .link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 8px;
+    }
+
+    .link-list a {
+      text-decoration: underline;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 14px;
+      transition: color 0.3s;
+      font-size: 14px;
+    }
+
+    .link-list a:hover {
+      color: rgba(0, 0, 0, 0.9);
+    }
+
   </style>
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-  <div class="sky" id="sky">
-    <!-- Seite 1 Wolken -->
-    <img src="cloud-1.png" alt="Wolke 1" class="cloud cloud-1">
-    <img src="cloud-2.png" alt="Wolke 2" class="cloud cloud-2">
-    <img src="cloud-3.png" alt="Wolke 3" class="cloud cloud-3">
-    <img src="cloud-4.png" alt="Wolke 4" class="cloud cloud-4">
-    <img src="cloud-5.png" alt="Wolke 5" class="cloud cloud-5">
-    <img src="cloud-6.png" alt="Wolke 6" class="cloud cloud-6">
-    <img src="cloud-7.png" alt="Wolke 7" class="cloud cloud-7">
+<!-- Himmel + Wolken -->
+<div class="sky" id="sky">
+  <img src="cloud-1.png" alt="Wolke 1" class="cloud cloud-1">
+  <img src="cloud-2.png" alt="Wolke 2" class="cloud cloud-2">
+  <img src="cloud-3.png" alt="Wolke 3" class="cloud cloud-3">
+  <img src="cloud-4.png" alt="Wolke 4" class="cloud cloud-4">
+  <img src="cloud-5.png" alt="Wolke 5" class="cloud cloud-5">
+  <img src="cloud-6.png" alt="Wolke 6" class="cloud cloud-6">
+  <img src="cloud-7.png" alt="Wolke 7" class="cloud cloud-7">
+  <img src="cloud-1.png" alt="Wolke 8" class="cloud cloud-8">
+  <img src="cloud-2.png" alt="Wolke 9" class="cloud cloud-8">
+  <img src="cloud-3.png" alt="Wolke 10" class="cloud cloud-10">
+  <img src="cloud-4.png" alt="Wolke 11" class="cloud cloud-11">
+  <img src="cloud-5.png" alt="Wolke 12" class="cloud cloud-12">
+  <img src="cloud-6.png" alt="Wolke 13" class="cloud cloud-13">
+  <img src="cloud-7.png" alt="Wolke 14" class="cloud cloud-14">
+</div>
 
-    <!-- Seite 2 Wolken (zweite Hälfte) -->
-    <img src="cloud-1.png" alt="Wolke 8" class="cloud cloud-8">
-    <img src="cloud-2.png" alt="Wolke 9" class="cloud cloud-9">
-    <img src="cloud-3.png" alt="Wolke 10" class="cloud cloud-10">
-    <img src="cloud-4.png" alt="Wolke 11" class="cloud cloud-11">
-    <img src="cloud-5.png" alt="Wolke 12" class="cloud cloud-12">
-    <img src="cloud-6.png" alt="Wolke 13" class="cloud cloud-13">
-    <img src="cloud-7.png" alt="Wolke 14" class="cloud cloud-14">
+<!-- Inhalt -->
+<div class="center-content">
+  <img src="profil-till.png" alt="Profilbild" class="center-image">
+
+  <!-- Neuer Text -->
+  <div class="subtitle">stuff made by Till.</div>
+
+  <div class="titles-links-container">
+    <!-- Block 1 -->
+    <div class="title-block">
+      <h2>Personal</h2>
+      <div class="link-list">
+        <a href="#">About Me</a>
+        <a href="#">CV</a>
+        <a href="#">Bucket List</a>
+        <a href="#">Goals</a>
+      </div>
+    </div>
+
+    <!-- Block 2 -->
+    <div class="title-block">
+      <h2>Projects</h2>
+      <div class="link-list">
+        <a href="#">NEW: Tills Ultimatives Trinkspiel</a>
+      </div>
+    </div>
+
+    <!-- Block 3 -->
+    <div class="title-block">
+      <h2>Contact</h2>
+      <div class="link-list">
+        <a href="https://www.instagram.com/tillwoe/">@tillwoe</a>
+        <a href="https://www.instagram.com/tyllyboy/">@tyllyboy</a>
+        <a href="https://www.tiktok.com/@tyllyboy">@tyllyboy</a>
+        <a href="https://de.linkedin.com/in/tillmann-woerner">@Tillmann Woerner</a>
+      </div>
+    </div>
   </div>
 
-  <div class="links-container">
-    <a href="#" class="link">About Me</a>
-    <a href="#" class="link">Projects</a>
-    <a href="#" class="link">Contact</a>
-  </div>
-
-  <div class="image-text">stuff made by Till.</div>
-
-  <img src="profil-till.png" alt="Mittelbild" class="center-image">
+</div>
 
 </body>
 </html>
